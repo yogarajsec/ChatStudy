@@ -1,5 +1,6 @@
 # Ex. No:1b 			Study of Client Server Chat Applications
-
+## Name : Yogaraj S
+## Reg no: 212223040248
 ## Aim: 
 To perform a study on Client Server Chat Applications
 ## Introduction:
@@ -72,9 +73,65 @@ User authentication mechanisms are essential to ensure secure and authorized acc
 Client-server chat applications are versatile tools that facilitate real-time communication between users over a network. They incorporate various components, including server-side and client-side elements, and must consider factors such as security, scalability, and concurrency. As technology continues to advance, client-server chat applications remain integral for collaborative communication in various domains.
 
 Client-server chat applications are foundational to real-time communication over networks. They incorporate principles of socket programming, communication protocols, and security mechanisms to provide a seamless user experience. Understanding the basics of client-server chat applications is essential for developers involved in networked application development, as they form the backbone of various collaborative communication systems. As technology evolves, chat applications continue to adapt, incorporating new features and technologies to enhance user interaction and connectivity.
+## Program:
+
+## Client:
+```
+import socket
 
 
+def client_program():
+    host = socket.gethostname()  
+    port = 5000  
+
+    client_socket = socket.socket()
+    client_socket.connect((host, port))
+
+    message = input(" -> ")  
+
+    while message.lower().strip() != 'bye':
+        client_socket.send(message.encode()) 
+        data = client_socket.recv(1024).decode()  
+
+        print('Received from server: ' + data) 
+
+        message = input(" -> ") 
+    client_socket.close() 
+
+
+if __name__ == '__main__':
+    client_program()
+```
+## Server:
+```
+import socket
+def server_program():
+    host = socket.gethostname()
+    port = 5000 
+
+    server_socket = socket.socket()  
+    server_socket.bind((host, port))  
+    server_socket.listen(2)
+    conn, address = server_socket.accept()  
+    print("Connection from: " + str(address))
+    while True:
+        data = conn.recv(1024).decode()
+        if not data:
+
+            break
+        print("from connected user: " + str(data))
+        data = input(' -> ')
+        conn.send(data.encode()) 
+
+    conn.close()  
+
+if __name__ == '__main__':
+    server_program()
+```
 ## Result:
+![Screenshot 2024-10-19 132440](https://github.com/user-attachments/assets/8e8d1e73-c7e5-4670-83c4-d022c95f79d7)
+
+![Screenshot 2024-10-19 132452](https://github.com/user-attachments/assets/f46121f5-826f-44ff-8f4b-6ccf3ea997f8)
 
 Thus the study on Client Server Chat Applications has been performed
 
